@@ -1,0 +1,35 @@
+ @keyframes fadeIn {
+     from {
+         opacity: 0;
+     }
+
+     to {
+         opacity: 1;
+     }
+ }
+
+ .weather-bg {
+     position: fixed;
+     top: 0;
+     left: 0;
+     width: 100%;
+     height: 100%;
+     z-index: -1;
+     filter: blur(10px) brightness(0.6);
+     background-size: cover;
+     background-position: center;
+     transition: background-image 1s ease;
+ }
+
+ .modal {
+     animation: fadeIn 0.3s ease-out;
+ }
+
+ .day-cell:hover {
+     transform: scale(1.03);
+     transition: transform 0.2s ease;
+ }
+
+ .weather-icon {
+     transition: all 0.3s ease;
+ }
