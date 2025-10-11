@@ -123,3 +123,11 @@ MEDIA_ROOT = BASE_DIR/"media"
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
+
+OPENWEATHER_API_KEY = os.getenv('OPENWEATHER_API_KEY')
+OPENAI_API_KEY = os.getenv('OPENAI_API_KEY')
