@@ -1,4 +1,5 @@
 APIModule/config.py
+*.pyc
 WeatherSiteDjango/main/__pycache__
 WeatherSiteDjango/main/__pycache__/__init__.cpython-310.pyc
 WeatherSiteDjango/main/__pycache__/admin.cpython-310.pyc
@@ -12,3 +13,4 @@ WeatherSiteDjango/WeatherSiteDjango/__pycache__/__init__.cpython-310.pyc
 WeatherSiteDjango/WeatherSiteDjango/__pycache__/settings.cpython-310.pyc
 WeatherSiteDjango/WeatherSiteDjango/__pycache__/urls.cpython-310.pyc
 WeatherSiteDjango/WeatherSiteDjango/__pycache__/wsgi.cpython-310.pyc
+*.pyc

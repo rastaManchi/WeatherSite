@@ -25,6 +25,16 @@ document.addEventListener('DOMContentLoaded', function () {
             day_bg: '/media/GIFs/rainy/day_rain.gif',
             evening_bg: '/media/GIFs/rainy/evening_rain.gif',
             night_bg: "/media/GIFs/rainy/night_rain.dif"
+        },
+        {
+            type: 'cloudy',
+            icon: '🌧️',
+            minTemp: 20,
+            maxTemp: 35,
+            morning_bg: '/media/GIFs/rainy/morning_rainy.gif',
+            day_bg: '/media/GIFs/rainy/day_rain.gif',
+            evening_bg: '/media/GIFs/rainy/evening_rain.gif',
+            night_bg: "/media/GIFs/rainy/night_rain.dif"
         }
     ];
 
