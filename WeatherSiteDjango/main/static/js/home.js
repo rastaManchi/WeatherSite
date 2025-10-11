@@ -11,17 +11,17 @@ document.addEventListener('DOMContentLoaded', function () {
             icon: '☀️',
             minTemp: 20,
             maxTemp: 35,
-            morning_bg: 'https://media.giphy.com/media/xT9IgzoKnwFNmIS1kY/giphy.gif',
-            day_bg: '',
-            evening_bg: '',
-            night_bg: "clear_night.gif"
+            morning_bg: '/media/GIFs/clear/morning_clear.gif',
+            day_bg: '/media/GIFs/clear/day_clear.gif',
+            evening_bg: '/media/GIFs/clear/evening_clear.gif',
+            night_bg: "/media/GIFs/clear/night_clear.gif"
         },
         {
             type: 'rain',
             icon: '🌧️',
             minTemp: 20,
             maxTemp: 35,
-            morning_bg: '',
+            morning_bg: '/media/GIFs/rainy/morning_rainy.gif',
             day_bg: '/media/GIFs/rainy/day_rain.gif',
             evening_bg: '/media/GIFs/rainy/evening_rain.gif',
             night_bg: "/media/GIFs/rainy/night_rain.dif"
