@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Calendar</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="{% static 'css/home.css' %}">
+</head>
+<body class="bg-gray-900 text-gray-100 min-h-screen">
+    <!-- Background with dynamic weather -->
+    <div class="weather-bg" id="weatherBackground"></div>
+    
+    <!-- Main container -->
+    <div class="container mx-auto px-4 py-8 max-w-6xl">
+        <header class="mb-8 text-center">
+            <h1 class="text-4xl font-bold mb-2">Weather Calendar</h1>
+            <p class="text-gray-400">Plan your outfits based on the weather</p>
+        </header>
+        
+        <!-- Month selector -->
+        <div class="flex justify-between items-center mb-6 bg-gray-800 rounded-lg p-4">
+            <button id="prevMonth" class="p-2 rounded-full hover:bg-gray-700 transition">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="15 18 9 12 15 6"></polyline>
+                </svg>
+            </button>
+            <h2 id="currentMonth" class="text-2xl font-semibold">January 2023</h2>
+            <button id="nextMonth" class="p-2 rounded-full hover:bg-gray-700 transition">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="9 18 15 12 9 6"></polyline>
+                </svg>
+            </button>
+        </div>
+        
+        <!-- Calendar grid -->
+        <div class="grid grid-cols-7 gap-2 mb-2">
+            <div class="text-center font-medium py-2">Sun</div>
+            <div class="text-center font-medium py-2">Mon</div>
+            <div class="text-center font-medium py-2">Tue</div>
+            <div class="text-center font-medium py-2">Wed</div>
+            <div class="text-center font-medium py-2">Thu</div>
+            <div class="text-center font-medium py-2">Fri</div>
+            <div class="text-center font-medium py-2">Sat</div>
+        </div>
+        
+        <div id="calendarGrid" class="grid grid-cols-7 gap-2">
+            <!-- Calendar days will be inserted here by JavaScript -->
+        </div>
+    </div>
+    
+    <!-- Modal for outfit recommendation -->
+    <div id="outfitModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden">
+        <div class="bg-gray-800 rounded-xl p-6 max-w-md w-full mx-4 modal">
+            <div class="flex justify-between items-center mb-4">
+                <h3 id="modalDate" class="text-xl font-bold"></h3>
+                <button id="closeModal" class="text-gray-400 hover:text-white">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+            <div class="flex items-center mb-4">
+                <div id="modalWeatherIcon" class="text-4xl mr-3"></div>
+                <div>
+                    <p id="modalWeatherDesc" class="font-medium"></p>
+                    <p id="modalTemp" class="text-2xl"></p>
+                </div>
+            </div>
+            <div class="bg-gray-700 rounded-lg p-4">
+                <h4 class="font-medium mb-2">Outfit Recommendation</h4>
+                <p id="outfitRecommendation" class="text-gray-300"></p>
+            </div>
+        </div>
+    </div>
+    
+    <script src="{% static 'js/home.js' %}"></script>
+</body>
+</html>
