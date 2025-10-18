@@ -1,5 +1,5 @@
 import requests, json
-from config import *
+# from config import *
 from bs4 import BeautifulSoup as bs
 
 
@@ -8,8 +8,8 @@ def get_access_token():
     headers = {
         "Content-Type": "application/x-www-form-urlencoded",
         "Accept": "application/json",
-        "RqUID": RqUID,
-        "Authorization": GIGACHAT_AUTH_TOKEN
+        "RqUID": "RqUID",
+        "Authorization": "GIGACHAT_AUTH_TOKEN"
     }
     r = requests.post('https://ngw.devices.sberbank.ru:9443/api/v2/oauth', data=payload, verify=False, headers=headers)
 
@@ -75,7 +75,8 @@ def free_temp_history():
         day_temps = temp.findAll("temperature-value")
         max = day_temps[0]["value"]
         min = day_temps[1]["value"]
-        print(f"День: {day}, Макс: {max}, Мин: {min}")
+        desc = temp.get("data-tooltip")
+        print(f"День: {day}, Макс: {max}, Мин: {min} {desc}")
         print()
 
 free_temp_history()
