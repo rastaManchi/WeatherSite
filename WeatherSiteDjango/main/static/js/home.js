@@ -52,25 +52,6 @@ document.addEventListener('DOMContentLoaded', function () {
     const outfitRecommendation = document.getElementById('outfitRecommendation');
     const weatherBackground = document.getElementById('weatherBackground');
 
-    // Event listeners
-    prevMonthBtn.addEventListener('click', () => {
-        currentMonth--;
-        if (currentMonth < 0) {
-            currentMonth = 11;
-            currentYear--;
-        }
-        renderCalendar();
-    });
-
-    nextMonthBtn.addEventListener('click', () => {
-        currentMonth++;
-        if (currentMonth > 11) {
-            currentMonth = 0;
-            currentYear++;
-        }
-        renderCalendar();
-    });
-
     closeModalBtn.addEventListener('click', () => {
         outfitModal.classList.add('hidden');
     });
@@ -89,74 +70,93 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Render calendar
     function renderCalendar() {
-        // Update month display
-        const monthNames = ["January", "February", "March", "April", "May", "June",
-            "July", "August", "September", "October", "November", "December"];
-        currentMonthElement.textContent = `${monthNames[currentMonth]} ${currentYear}`;
+        let month_weather = [];
+        fetch("/get_month_temp", {
+            method: "POST",
+            body: JSON.stringify({"city": "kazan"})
+        }).then(response => {
+            return response.json()
+        }).then(data => {
+            month_weather = data
+            // Update month display
+            const monthNames = ["January", "February", "March", "April", "May", "June",
+                "July", "August", "September", "October", "November", "December"];
+            currentMonthElement.textContent = `${monthNames[currentMonth]} ${currentYear}`;
 
-        // Clear previous calendar
-        calendarGrid.innerHTML = '';
+            // Clear previous calendar
+            calendarGrid.innerHTML = '';
 
-        // Get first day of month and total days
-        const firstDay = new Date(currentYear, currentMonth, 1).getDay();
-        const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
+            // Get first day of month and total days
+            const firstDay = new Date(currentYear, currentMonth, 1).getDay();
+            const currentDayIndex = currentDate.getDay();
+            const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
 
-        // Add empty cells for days before first day
-        for (let i = 0; i < firstDay; i++) {
-            const emptyCell = document.createElement('div');
-            emptyCell.className = 'h-24 bg-gray-800 rounded-lg opacity-50';
-            calendarGrid.appendChild(emptyCell);
-        }
-
-        // Add day cells
-        for (let day = 1; day <= daysInMonth; day++) {
-            const dayCell = document.createElement('div');
-            dayCell.className = 'day-cell bg-gray-800 rounded-lg p-2 h-24 flex flex-col cursor-pointer hover:bg-gray-700 transition';
-
-            // Random weather for the day
-            const weather = getRandomWeather();
-            const temp = Math.floor(Math.random() * (weather.maxTemp - weather.minTemp + 1)) + weather.minTemp;
-
-            // Date for this cell
-            const cellDate = new Date(currentYear, currentMonth, day);
-
-            // If it's today, highlight it
-            if (day === currentDate.getDate() && currentMonth === currentDate.getMonth() && currentYear === currentDate.getFullYear()) {
-                dayCell.classList.add('border-2', 'border-blue-400');
-                updateBackground(weather);
+            // Add empty cells for days before first day
+            for (let i = 0; i < firstDay; i++) {
+                const emptyCell = document.createElement('div');
+                emptyCell.className = 'h-24 bg-gray-800 rounded-lg opacity-50';
+                calendarGrid.appendChild(emptyCell);
             }
 
-            // Day number
-            const dayNumber = document.createElement('div');
-            dayNumber.className = 'text-right font-medium';
-            dayNumber.textContent = day;
-            dayCell.appendChild(dayNumber);
+            // Add day cells
+            let weather_count = 0
+            for (let day = currentDate.getDate() - currentDayIndex + 1; day <= daysInMonth; day++) {
+                const dayCell = document.createElement('div');
+                dayCell.className = 'day-cell bg-gray-800 rounded-lg p-2 h-24 flex flex-col cursor-pointer hover:bg-gray-700 transition';
 
-            // Weather icon
-            const weatherIcon = document.createElement('div');
-            weatherIcon.className = 'weather-icon text-2xl text-center my-1';
-            weatherIcon.textContent = weather.icon;
-            dayCell.appendChild(weatherIcon);
+                // Random weather for the day
+                const weather = month_weather[weather_count]
+                console.log(weather)
+                const temp = (weather.min + weather.max)/2
 
-            // Temperature
-            const tempElement = document.createElement('div');
-            tempElement.className = 'text-center text-sm';
-            tempElement.textContent = `${temp}°C`;
-            dayCell.appendChild(tempElement);
+                // Date for this cell
+                const cellDate = new Date(currentYear, currentMonth, day);
 
-            // Store weather data on the cell
-            dayCell.dataset.date = cellDate.toDateString();
-            dayCell.dataset.weatherType = weather.type;
-            dayCell.dataset.weatherIcon = weather.icon;
-            dayCell.dataset.temperature = temp;
+                // If it's today, highlight it
+                if (day === currentDate.getDate() && currentMonth === currentDate.getMonth() && currentYear === currentDate.getFullYear()) {
+                    dayCell.classList.add('border-2', 'border-blue-400');
+                    fetch("/get_current_weather", {
+                        method: "POST",
+                        body: JSON.stringify({city: "kazan"})
+                    }).then(response => {
+                        return response.json()
+                    }).then(data => {
+                        updateBackground(data);
+                    })
+                }
 
-            // Click event for outfit recommendation
-            dayCell.addEventListener('click', () => {
-                openOutfitModal(day, weather, temp, cellDate);
-            });
+                // Day number
+                const dayNumber = document.createElement('div');
+                dayNumber.className = 'text-right font-medium';
+                dayNumber.textContent = day;
+                dayCell.appendChild(dayNumber);
 
-            calendarGrid.appendChild(dayCell);
-        }
+                // Weather icon
+                // const weatherIcon = document.createElement('div');
+                // weatherIcon.className = 'weather-icon text-2xl text-center my-1';
+                // weatherIcon.textContent = weather.icon;
+                // dayCell.appendChild(weatherIcon);
+
+                // Temperature
+                const tempElement = document.createElement('div');
+                tempElement.className = 'text-center text-sm';
+                tempElement.textContent = `${temp}°C`;
+                dayCell.appendChild(tempElement);
+
+                // Store weather data on the cell
+                dayCell.dataset.date = weather.day;
+                // dayCell.dataset.weatherType = weather.type;
+                // dayCell.dataset.weatherIcon = weather.icon;
+                dayCell.dataset.temperature = temp;
+
+                // Click event for outfit recommendation
+                dayCell.addEventListener('click', () => {
+                    openOutfitModal(day, weather, temp, cellDate);
+                });
+                weather_count++
+                calendarGrid.appendChild(dayCell);
+            }
+        })
 
         // Update background based on current weather
     }
@@ -165,8 +165,8 @@ document.addEventListener('DOMContentLoaded', function () {
     function openOutfitModal(day, weather, temp, date) {
         const dateOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
         modalDate.textContent = date.toLocaleDateString('en-US', dateOptions);
-        modalWeatherIcon.textContent = weather.icon;
-        modalWeatherDesc.textContent = weather.type.charAt(0).toUpperCase() + weather.type.slice(1);
+        // modalWeatherIcon.textContent = weather.icon;
+        // modalWeatherDesc.textContent = weather.type.charAt(0).toUpperCase() + weather.type.slice(1);
         modalTemp.textContent = `${temp}°C`;
         outfitRecommendation.textContent = "реком";
         outfitModal.classList.remove('hidden');
