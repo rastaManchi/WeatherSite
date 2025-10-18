@@ -6,26 +6,46 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Weather conditions
     const weatherConditions = [
-        {
-            type: 'sunny',
-            icon: '☀️',
-            minTemp: 20,
-            maxTemp: 35,
-            morning_bg: 'https://media.giphy.com/media/xT9IgzoKnwFNmIS1kY/giphy.gif',
-            day_bg: '',
-            evening_bg: '',
-            night_bg: "clear_night.gif"
-        },
-        {
-            type: 'rain',
-            icon: '🌧️',
-            minTemp: 20,
-            maxTemp: 35,
-            morning_bg: '',
-            day_bg: '/media/GIFs/rainy/day_rain.gif',
-            evening_bg: '/media/GIFs/rainy/evening_rain.gif',
-            night_bg: "/media/GIFs/rainy/night_rain.dif"
-        }
+    {
+        type: 'rain',
+        icon: '🌧️',
+        minTemp: 20,
+        maxTemp: 35,
+        morning_bg: '/media/GIFs/rainy/morning_rain.gif',
+        day_bg: '/media/GIFs/rainy/day_rain.gif',
+        evening_bg: '/media/GIFs/rainy/evening_rain.gif',
+        night_bg: '/media/GIFs/rainy/night_rain.gif'
+    },
+    {
+        type: 'sunny',
+        icon: '☀️',
+        minTemp: 25,
+        maxTemp: 40,
+        morning_bg: '/media/GIFs/clear/morning_clear.gif',
+        day_bg: '/media/GIFs/clear/day_clear.gif',
+        evening_bg: '/media/GIFs/clear/evening_clear.gif',
+        night_bg: '/media/GIFs/clear/night_clear.gif'
+    },
+    {
+        type: 'cloudy',
+        icon: '☁️',
+        minTemp: 15,
+        maxTemp: 30,
+        morning_bg: '/media/GIFs/cloudy/morning.gif',
+        day_bg: '/media/GIFs/cloudy/day.gif',
+        evening_bg: '/media/GIFs/cloudy/evening.gif',
+        night_bg: '/media/GIFs/cloudy/night.gif'
+    },
+    {
+        type: 'snowy',
+        icon: '❄️',
+        minTemp: -10,
+        maxTemp: 5,
+        morning_bg: '/media/GIFs/snowy/morning_snowfall.gif',
+        day_bg: '/media/GIFs/snowy/day_snowfall.gif',
+        evening_bg: '/media/GIFs/snowy/evening_snowfall.gif',
+        night_bg: '/media/GIFs/snowy/night_snowfall.gif'
+    }
     ];
 
     // DOM elements
