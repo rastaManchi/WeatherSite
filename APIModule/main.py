@@ -1,5 +1,7 @@
 import requests, json
 from config import *
+from bs4 import BeautifulSoup as bs
+
 
 
 def get_access_token():
@@ -49,3 +51,19 @@ print(get_answer(access_token, "Температура: -5, Ветер: 1м\с")
 # print(answer)
 # if answer['стоит ли выходить гулять']:
 #     print(answer['верхняя одежда'])
+
+def free_temp_history():
+    headers = {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 YaBrowser/25.8.0.0 Safari/537.36"
+    }
+    r = requests.get("https://www.gismeteo.ru/weather-kazan-4364/month/", headers=headers)
+    data = bs(r.content, "lxml")
+    temps = data.findAll(class_="row-item-month-date")
+    for temp in temps:
+        day = temp.find(class_="date").text
+        day_temps = temp.findAll("temperature-value")
+        max = day_temps[0]["value"]
+        min = day_temps[1]["value"]
+        print(max)
+        print(min)
+        print(f"День: {day}, Макс: {max}, Мин: {min}")

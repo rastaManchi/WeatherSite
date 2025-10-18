@@ -17,6 +17,16 @@ document.addEventListener('DOMContentLoaded', function () {
             night_bg: "/media/GIFs/clear/night_clear.gif"
         },
         {
+            type: 'snowy',
+            icon: '',
+            minTemp: 20,
+            maxTemp: 35,
+            morning_bg: '/media/GIFs/snowy/morning_snowfall.gif',
+            day_bg: '/media/GIFs/snowy/day_snowfall.gif',
+            evening_bg: '/media/GIFs/snowy/evening_snowfall.gif',
+            night_bg: "/media/GIFs/snowy/night_snowfall.gif"
+        },
+        {
             type: 'rain',
             icon: '🌧️',
             minTemp: 20,
